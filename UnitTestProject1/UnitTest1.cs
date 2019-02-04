@@ -15,13 +15,14 @@ namespace UnitTestProject1
         public void InitializeTest()
         {
             // Arrange Test...................
-            _book = new Book("Book" , 2019);
+            _book = new Book("Book" , 2019 , "zk222ac@gmail.com");
         }
         [TestMethod]
         public void LegalTest()
         {
             Assert.AreEqual("Book" , _book.Title);
             Assert.AreEqual(2019, _book.Year);
+            Assert.AreEqual("zk222ac@gmail.com" , _book.Email);
         }
 
         [TestMethod]

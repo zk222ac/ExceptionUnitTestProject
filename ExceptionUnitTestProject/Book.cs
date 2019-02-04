@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
 namespace ExceptionUnitTestProject
 {
@@ -8,11 +9,12 @@ namespace ExceptionUnitTestProject
         private const string TwoCharLong = "Title must be 2 character long";
         private string _title;
         private int _year;
+        private string _email;
 
 
         public string Title
         {
-            get { return _title;}
+            get => _title;
             set
             {
                 CheckTitle(value);
@@ -21,7 +23,7 @@ namespace ExceptionUnitTestProject
         }
         public int Year
         {
-            get { return _year; }
+            get => _year;
             set
             {
                 CheckYear(value);
@@ -29,12 +31,24 @@ namespace ExceptionUnitTestProject
             }
         }
 
-        public Book(string title, int year)
+        public string Email
+        {
+            get => _email;
+            set
+            {
+                CheckEmail(value);
+                _email = value;
+            }
+        }
+
+        public Book(string title, int year , string email)
         {
             CheckTitle(title);
             CheckYear(year);
+            CheckEmail(email);
             _title = title;
             _year = year;
+            _email = email;
         }
 
         public Book()
@@ -47,7 +61,7 @@ namespace ExceptionUnitTestProject
         {
             if (title != null && (!string.IsNullOrEmpty(title) && (title.Length < 2)) )
             {
-                throw  new ArgumentException(TwoCharLong);
+                throw new ArgumentException(TwoCharLong);
             }
         }
         public void CheckYear(int year)
@@ -56,6 +70,15 @@ namespace ExceptionUnitTestProject
             {
                 throw new ArgumentOutOfRangeException(YearRange);
             }
-        }   
+        }
+
+        public void CheckEmail(string email)
+        {
+            var regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+            if (!regex.IsMatch(email))
+            {
+               throw  new InvalidEmailException(email);
+            }
+        }
     }
 }
