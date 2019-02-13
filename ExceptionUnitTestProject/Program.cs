@@ -8,6 +8,7 @@ namespace ExceptionUnitTestProject
         {
             Console.WriteLine("Hello Unit Test World! ");
             Console.ReadKey();
+
         }
     }
 }
